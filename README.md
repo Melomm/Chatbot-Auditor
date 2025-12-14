@@ -2,6 +2,10 @@
 
 Sistema de auditoria inteligente desenvolvido para detectar violações de compliance, fraudes financeiras e conspiração corporativa usando LLMs e RAG (Retrieval-Augmented Generation).
 
+
+https://github.com/user-attachments/assets/911a6863-9c0f-4b90-8167-434de828971f
+
+
 ## Índice
 
 - [Visão Geral](#visão-geral)
