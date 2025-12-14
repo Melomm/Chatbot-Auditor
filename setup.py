@@ -149,8 +149,6 @@ def main():
     if all(results):
         print("[OK] SETUP COMPLETO! Sistema pronto para uso.")
         print("\nExecute: python main.py")
-        print("\nDica: O sistema usará Groq se GROQ_API_KEY estiver configurado")
-        print("      (é grátis e mais rápido que OpenAI!)")
     else:
         print("[!] SETUP INCOMPLETO. Corrija os problemas acima.")
         

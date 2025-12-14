@@ -4,7 +4,7 @@ Sistema de consulta sobre políticas de compliance usando RAG
 """
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from llm_config import get_llm
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
@@ -45,13 +45,19 @@ class ComplianceChatbot:
         
         print(f"[*] Documento dividido em {len(chunks)} chunks")
         
-        # Criar embeddings e vectorstore
-        embeddings = OpenAIEmbeddings()
+        # Criar embeddings gratuitos (HuggingFace)
+        print("[*] Carregando modelo de embeddings (primeira vez pode demorar)...")
+        embeddings = HuggingFaceEmbeddings(
+            model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+            model_kwargs={'device': 'cpu'},
+            encode_kwargs={'normalize_embeddings': True}
+        )
         
         # Criar metadados simples
         metadatas = [{"chunk": i, "source": "politica_compliance.txt"} 
                      for i in range(len(chunks))]
         
+        print("[*] Criando índice vetorial...")
         self.vectorstore = FAISS.from_texts(
             texts=chunks,
             embedding=embeddings,
@@ -67,7 +73,11 @@ class ComplianceChatbot:
     def load_existing_index(self):
         """Carrega índice existente"""
         print("[*] Carregando índice existente...")
-        embeddings = OpenAIEmbeddings()
+        embeddings = HuggingFaceEmbeddings(
+            model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+            model_kwargs={'device': 'cpu'},
+            encode_kwargs={'normalize_embeddings': True}
+        )
         self.vectorstore = FAISS.load_local(
             self.persist_dir, 
             embeddings,

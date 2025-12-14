@@ -296,11 +296,6 @@ def get_llm():
 
 ## Requisitos
 
-### Requisitos de Sistema
-- Python 3.8 ou superior
-- 4GB RAM mínimo (8GB recomendado)
-- 500MB espaço em disco
-
 ### Dependências Python
 Todas listadas em `requirements.txt`:
 ```
